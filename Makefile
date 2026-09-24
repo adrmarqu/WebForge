@@ -38,4 +38,7 @@ clean: down
 	rm -rf server/node_modules client/node_modules
 	@echo "🧹 Módulos eliminados."
 
-.PHONY: install up down status clean
+open: 
+	@open -a "Google Chrome" http://localhost:5173
+
+.PHONY: install up down status clean open
