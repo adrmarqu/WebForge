@@ -20,7 +20,7 @@ function App()
                 <Route path="/information/:type" element={<Data />}></Route>
                 <Route path="/builder" element={<Builder />}></Route>
                 <Route path="/creator" element={<Creator />}></Route>
-                <Route path="/download" element={<Download />}></Route>
+                <Route path="/download/:type" element={<Download />}></Route>
             </Routes>
         </main></BrowserRouter>
     );

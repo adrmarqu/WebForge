@@ -1,0 +1,13 @@
+.template
+{
+    padding: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.template.selected 
+{
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+}

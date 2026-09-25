@@ -1,81 +1,100 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Dialog from '../../components/Dialog/Dialog.tsx';
-import { useState } from "react";
+import DialogTemplate from '../../components/Dialog/DialogTemplate.tsx';
+import type { Template } from "../../types/dialog.ts";
+import { useStore } from "../../store/useStore.ts";
 
 function Home()
 {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
+    const loadTemplate = useStore((state: any) => state.loadTemplate);
+    const [error, setError] = useState<string>("");
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    // Open dialog of templates and select one
-    const openTemplates = () =>
-    {
-        handleTemplate();
-    };
+    // Open dialog
+    const openDialog = (): void => setIsOpen(true);
 
     // Handle the template selected
-    const handleTemplate = () =>
+    const handleTemplate = (tpl: Template | null): void =>
     {
+        setError("");
+        setIsOpen(false);
+        if (tpl === null || tpl.data === null) return ;
+        if (tpl.name !== "blank") loadTemplate(tpl.data);
         navigate("/dashboard");
     };
 
-    // Open the input file
-    const loadFile = () =>
-    {
-    };
+    // Load file
+    const loadFile = (): void => fileInputRef.current?.click();
 
-    // Handle the file of the input
-    const handleFile = () =>
+    const checkFile = (event: React.ChangeEvent<HTMLInputElement>): void =>
     {
-        navigate("/dashboard");
-    };
+        const file = event.target.files?.[0];
+        if (!file)
+        {
+            setError("No se ha seleccionado ningun archivo.");
+            return;
+        }
 
-    // Open the react dialog
-    const openOptions = () =>
-    {
-        downloadMakefile();
-    };
+        setError("");
 
-    // Download the Makefile
-    const downloadMakefile = () =>
-    {
+        const reader = new FileReader();
+        reader.onload = (e) =>
+        {
+            try
+            {
+                const content = e.target?.result as string;
+                const parsedData = JSON.parse(content);
 
+                if (!parsedData || typeof parsedData !== 'object') 
+                {
+                    setError("El archivo no es válido.");
+                    return;
+                }
+
+                loadTemplate(parsedData);
+                navigate("/dashboard");
+            } 
+            catch (error) 
+            {
+                setError("Error al leer el archivo JSON.");
+            } 
+            finally
+            {
+                if (fileInputRef.current) fileInputRef.current.value = "";
+            }
+        };
+        reader.readAsText(file);
     };
 
     return (
         <>
         <section className="flex h-center col">
             <h1 className="text-center">Bienvenido a WebForge</h1>
-            <button onClick={openTemplates}>Nuevo proyecto</button>
+            <div><span>{error}</span></div>
+            <button onClick={openDialog}>Nuevo proyecto</button>
             <button onClick={loadFile}>Cargar proyecto</button>
 
             <input 
                 type="file" 
                 ref={fileInputRef} 
-                onChange={handleFile} 
+                onChange={checkFile} 
                 style={{ display: "none" }} 
                 accept=".json"
             />
 
             <Link to="/information/html" className="text-center">Html</Link>
             <Link to="/information/css" className="text-center">Css</Link>
-            <button onClick={openOptions}>Descargar React</button>
+            <Link to="/download/react" className="text-center">Descargar React</Link>
         </section>
-        <Dialog
-            isOpen={false}
-            onClose={() => null}
-            title=""
-            btnText=""
-        >
-        </Dialog>
-        <Dialog
-            isOpen={false}
-            onClose={() => null}
-            title=""
-            btnText=""
-        >
-        </Dialog>
+        <DialogTemplate
+            title="Template"
+            description="Descripcion de templates"
+            open={isOpen}
+            onClose={handleTemplate}
+            templateType="web"
+        />
         </>
     );
 }
