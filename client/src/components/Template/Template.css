@@ -1,0 +1,52 @@
+.template
+{
+    width: 90px;
+    height: 110px;
+    text-align: center;
+
+    padding: 8px;
+    border-radius: 8px;
+
+    cursor: pointer;
+    border: 2px solid transparent;
+
+    transition: all 0.2 ease;
+}
+
+.template
+{
+    justify-content: center;
+}
+
+.template:hover
+{
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.template img
+{
+    width: 64px;
+    height: 64px;
+
+    object-fit: contain;
+
+    display: block;
+    margin: 0 auto;
+}
+
+.template p
+{
+    margin-top: 6px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 12px;
+}
+
+.template.selected 
+{
+    border-color: #007aff;
+    background-color: rgba(0, 122, 255, 0.06);
+}

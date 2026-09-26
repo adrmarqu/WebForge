@@ -1,0 +1,25 @@
+.home
+{
+    min-height: 95vh;
+}
+
+.home-card
+{
+    padding: 20px 40px 30px 40px;
+    gap: 5px;
+
+    background-color: var(--bg-card);
+    border: 1px solid black;
+}
+
+.home-card h1
+{
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.home-card button, .home-card a
+{
+    font-size: 1.5rem;
+}
+

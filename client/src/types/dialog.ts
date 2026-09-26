@@ -2,15 +2,16 @@ import type { WebState } from "./zustand";
 
 export type TemplateProps =
 {
-    name: string;
+    code: string;
     image: string;
+    type: TemplateType;
     onClick?: () => void;
     isSelected?: boolean;
 } 
 
 export type Template =
 {
-    name: string;
+    code: string;
     type: TemplateType;
     image: string;
     data: WebState;
@@ -23,9 +24,7 @@ export type TemplateType =
 
 export type DialogProps =
 {
-    title: string;
-    description: string;
-    open: boolean;
+    isOpen: boolean;
     onClose: (result: Template | null) => void;
     templateType: TemplateType;
 };

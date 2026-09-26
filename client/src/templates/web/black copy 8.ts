@@ -1,16 +1,16 @@
 import type { Template } from "../../types/dialog";
 
-export const blank: Template = 
+export const black: Template = 
 {
-    code: "blank",
+    code: "black",
     image: "/assets/blank.png",
     type: "web",
     data: {
-        template: "blank",
+        template: "black",
         config: {
             max_width: { value: 100, type: '%' },
             padding: { value: 0, type: 'none' },
-            bg: '#ffffff'
+            bg: '#000000'
         },
         colors: [],
         texts: [],
@@ -23,4 +23,4 @@ export const blank: Template =
     }
 };
 
-export default blank;
+export default black;

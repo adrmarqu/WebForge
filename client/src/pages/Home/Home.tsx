@@ -3,14 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import DialogTemplate from '../../components/Dialog/DialogTemplate.tsx';
 import type { Template } from "../../types/dialog.ts";
 import { useStore } from "../../store/useStore.ts";
+import Button from "../../components/Button/Button.tsx";
+import { useTranslation } from "../../i18n/useTranslation.ts";
+import './Home.css';
 
 function Home()
 {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
     const loadTemplate = useStore((state: any) => state.loadTemplate);
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<string>("Hola mundo");
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { t } = useTranslation();
 
     // Open dialog
     const openDialog = (): void => setIsOpen(true);
@@ -21,7 +25,7 @@ function Home()
         setError("");
         setIsOpen(false);
         if (tpl === null || tpl.data === null) return ;
-        if (tpl.name !== "blank") loadTemplate(tpl.data);
+        if (tpl.code !== "blank") loadTemplate(tpl.data);
         navigate("/dashboard");
     };
 
@@ -70,11 +74,19 @@ function Home()
 
     return (
         <>
-        <section className="flex h-center col">
-            <h1 className="text-center">Bienvenido a WebForge</h1>
-            <div><span>{error}</span></div>
-            <button onClick={openDialog}>Nuevo proyecto</button>
-            <button onClick={loadFile}>Cargar proyecto</button>
+        <section className="home flex h-center v-center">
+        <div className="home-card flex col v-center">
+            <h1 className="">{t('home.welcome')}</h1>
+            <div className="hidden error-container">
+                <span>{error}</span>
+            </div>
+            
+            <Button variant="primary" onClick={openDialog}>
+                {t('home.new')}
+            </Button>
+            <Button variant="primary" onClick={loadFile}>
+                {t('home.load')}
+            </Button>
 
             <input 
                 type="file" 
@@ -84,14 +96,19 @@ function Home()
                 accept=".json"
             />
 
-            <Link to="/information/html" className="text-center">Html</Link>
-            <Link to="/information/css" className="text-center">Css</Link>
-            <Link to="/download/react" className="text-center">Descargar React</Link>
-        </section>
+            <Link to="/information/html" className="btn btn-secondary">
+                {t('home.html')}
+            </Link>
+            <Link to="/information/css" className="btn btn-secondary">
+                {t('home.css')}
+            </Link>
+            <Link to="/config/react" className="btn btn-react">
+                {t('home.react')}
+            </Link>
+        </div></section>
+
         <DialogTemplate
-            title="Template"
-            description="Descripcion de templates"
-            open={isOpen}
+            isOpen={isOpen}
             onClose={handleTemplate}
             templateType="web"
         />

@@ -1,40 +1,69 @@
-import type { DialogProps } from "../../types/dialog";
-import type { Template } from "../../types/dialog";
-import { useState } from "react";
-import TplComponent from "../Others/Template/Template";
+import type { DialogProps, Template } from "../../types/dialog";
+import { useState, useEffect, useRef } from "react";
+import TplComponent from "../Template/Template";
 import { getTemplates } from "../../templates";
+import Button from "../Button/Button";
+import { useTranslation } from "../../i18n/useTranslation";
+import './DialogTemplate.css';
 
-function DialogTemplate({title, description, open, onClose, templateType}: DialogProps)
+function DialogTemplate({isOpen, onClose, templateType}: DialogProps)
 {
-    if (!open) return null;
-
     const [tpl, setTpl] = useState<Template | null>(null);
     const templates = getTemplates(templateType);
+    const { t } = useTranslation();
+
+    const dialogRef = useRef<HTMLDialogElement>(null);
+    useEffect(() => 
+    {
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        if (isOpen && !dialog.open) dialog.showModal();
+        else if (!isOpen && dialog.open) dialog.close();
+
+    }, [isOpen]);
 
     const printTemplates = (): React.ReactNode =>
     {
         return (
-            <div>
+            <div className="dialog-templates grid">
                 {templates.map((t, index) => (
-                    <TplComponent key={index} image={t.image} name={t.name} onClick={() => setTpl(t)}/>
+                    <TplComponent 
+                        key={index} 
+                        image={t.image} 
+                        code={t.code} 
+                        type={t.type} 
+                        onClick={() => setTpl(t)}
+                        isSelected={tpl?.code === t.code}    
+                    />
                 ))}
             </div>
         );
     };
 
     const saveBtn = (): void => onClose(tpl);
-    const cancelBtn = (): void => onClose(null);
+    const cancelBtn = (): void => { setTpl(null); onClose(null); };
 
     return (
-        <dialog open>
-            <h2>{title}</h2>
-            <p>{description}</p>
-                
+        <dialog className="dialog" ref={dialogRef}>
+            <div className="dialog-header">
+                <h2>{t(`items.dialog.title.${templateType}`)}</h2>
+                <p>{t(`items.dialog.desc.${templateType}`)}</p>
+            </div>
+
+            <hr />
+
             {printTemplates()}
 
-            <div>
-                <button onClick={cancelBtn}>Cancelar</button>
-                <button onClick={saveBtn} disabled={!tpl}>Elegir</button>
+            <hr />
+
+            <div className="dialog-footer flex h-end">
+                <Button variant="secondary" onClick={cancelBtn}>
+                    {t('btn.cancel')}
+                </Button>
+                <Button variant={!tpl ? "disabled" : "primary"} onClick={saveBtn} disabled={!tpl}>
+                    {t('btn.select')}
+                </Button>
             </div>
         </dialog>
     );

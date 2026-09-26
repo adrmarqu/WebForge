@@ -4,6 +4,7 @@
 .flex { display: flex; }
 .grid { display: grid; }
 .block { display: block; }
+.hidden { display: none; }
 
 /* Position */
 .absolute { position: absolute; }
@@ -27,3 +28,22 @@
 .flex.col-reverse { flex-direction: column-reverse; }
 .flex.row { flex-direction: row; }
 .flex.row-reverse { flex-direction: row-reverse; }
+
+/* Flex - Wrap */
+.flex.wrap { flex-wrap: wrap; }
+.flex.nowrap { flex-wrap: nowrap; }
+.flex.wrap-reverse { flex-wrap: wrap-reverse; }
+
+/* Others */
+.error-container
+{
+    width: 100%;
+    padding: 10px 20px;
+    background-color: var(--danger);
+    color: var(--text-light);
+}
+
+/* Tests */
+.b-red { border: 2px solid red; }
+.b-blue { border: 2px solid blue; }
+.b-green { border: 2px solid green; }

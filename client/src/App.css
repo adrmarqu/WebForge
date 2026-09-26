@@ -1,1 +1,44 @@
+*, *::before, *::after
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
+:root
+{
+    /* States */
+    --primary: #3b82f6;
+    --secondary: #e5e7eb;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --success: #10b981;
+    --info: #06b6d4;;
+    --react: #ff6d00;
+    --disabled: #94a3b8;
+
+    /* Hover States */
+    --primary-hover: #2563eb;
+    --secondary-hover: #d1d5db;
+    --warning-hover: #d97706;
+    --danger-hover: #dc2626;
+    --success-hover: #059669;
+    --info-hover: #0891b2;
+    --react-hover: #e65c00;
+
+    /* Text */
+    --text-dark: #1f2937;
+    --text-light: #ededed;
+    --text-disabled: #cbd5e1;
+    --text-gray: #666666;
+
+    /* Background */
+    --bg: #f3f4f6;
+    --bg-card: #ffffff;
+    --bg-card-gray: #fcfcfc;
+}
+
+body
+{
+    background-color: var(--bg);
+}
