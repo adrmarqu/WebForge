@@ -1,0 +1,86 @@
+.flex
+{
+    display: flex;
+
+    /* Jusitfy content */
+    &.h-center { justify-content: center; }
+    &.h-start { justify-content: flex-start; }
+    &.h-end { justify-content: flex-end; }
+    &.h-between { justify-content: space-between; }
+    &.h-around { justify-content: space-around; }
+
+    /* Align items */
+    &.v-start { align-items: flex-start; }
+    &.v-end { align-items: flex-end; }
+    &.v-center { align-items: center; }
+
+    /* Combinations */
+    &.center { justify-content: center; align-items: center; }
+
+    /* Direction */
+    &.col { flex-direction: column; }
+    &.col-reverse { flex-direction: column-reverse; }
+    &.row { flex-direction: row; }
+    &.row-reverse { flex-direction: row-reverse; }
+
+    /* Wrap */
+    &.wrap { flex-wrap: wrap; }
+    &.nowrap { flex-wrap: nowrap; }
+    &.wrap-reverse { flex-wrap: wrap-reverse; }
+}
+
+.grid { display: grid; }
+
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+
+.block { display: block; }
+.inline-block { display: inline-block; }
+.hidden { display: none; }
+
+
+.text
+{
+    /* Align */
+    &.left { text-align: left; }
+    &.center { text-align: center; }
+    &.right { text-align: right; }
+
+    /* Weight */
+    &.light { font-weight: 300; }
+    &.normal { font-weight: 400; }
+    &.bold { font-weight: 700; }
+    &.black { font-weight: 900; }
+
+    /* Transform */
+    &.upper { text-transform: uppercase; }
+    &.lower { text-transform: lowercase; }
+    &.capital { text-transform: capitalize; }
+
+    /* Style */
+    &.italic { font-style: italic; }
+
+    /* Decoration */
+    &.line { text-decoration: underline; }
+    &.line-through { text-decoration: line-through; }
+    &.no-line { text-decoration: none; }
+
+    /* Overflow */
+    &.truncate
+    {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* Position */
+.absolute { position: absolute; }
+.relative { position: relative; }
+.fixed { position: fixed; }
+
+/* Tests */
+.b-red { border: 2px solid red; }
+.b-blue { border: 2px solid blue; }
+.b-green { border: 2px solid green; }

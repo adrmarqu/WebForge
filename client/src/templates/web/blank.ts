@@ -7,6 +7,7 @@ export const blank: Template =
     type: "web",
     data: {
         template: "blank",
+        active: true,
         config: {
             max_width: { value: 100, type: '%' },
             padding: { value: 0, type: 'none' },

@@ -13,3 +13,28 @@
 - Login: Este es el login solo de admin, si te logueas podras subir componentes y guardar estilos y plantillas a la web. Solo valido en local.
 
 - Vista previa: Esta pagina es para ver como s veria la web. (Puedo utilizar la misma pagina que el editor pero quitando las ediciones)
+
+# Home (los 2 llevan al mismo lugar)
+GET /
+GET /home
+
+# Dashboard
+GET /dashboard
+
+# Editor
+GET /editor
+
+# Live preview
+GET /preview
+
+# Build configuration
+GET /config/makefile
+GET /config/web
+
+# Export / Download
+
+# Documentation / Guides
+GET /docs/html
+GET /docs/css
+
+# Admin login

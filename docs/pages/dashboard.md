@@ -4,23 +4,34 @@ Menu principal
 
 ## Contenido
 
-- **Header**
+- **Header1**
+    - Logotipo
+    - Home (como se veria la pagina)
+- **Header2**
+    - Home
+        - Introducción
+        - Datos de la web
     - Global
         - Colores
         - Tipografia
         - Layout (ancho maximo, padding, margen...)
         - Idiomas
+        - Favicon
     - Paginas
         - Editar web
         - Lista de paginas (puedes crear, editar o eliminar paginas). Al editar, la vista cambia y se pone otra.
+    - Media
+        - Lista de imagenes (añadir, eliminar)
+        - Lista de iconos (añadir, eliminar)
+    - Forms
+        - Lista de forms (crear, editar, eliminar)
+        - Campos y estructura (Aqui se edita el form)
     - Creacion
         - Lista de componentes (crear, editar, eliminar)
-        - Añadir plantilla actual (Hace de la pagina actual una plantilla)
-        - Guardar estilo (Guarda los colores)
     - Proyecto
         - Guardar / Cargar
         - Exportar
-        - Eliminar
+        - Eliminar/Resetear
 
 ### Colores
 

@@ -5,20 +5,32 @@ const modulesWeb = import.meta.glob('./web/*.ts', {eager: true});
 const modulesCol = import.meta.glob('./colors/*.ts', {eager: true});
 const modulesCom = import.meta.glob('./components/*.ts', {eager: true});
 
+const uniqueByCode = (list: any[]) =>
+{
+    const seen = new Set();
+    return list.filter(item =>
+    {
+        if (!item?.code) return true;
+        if (seen.has(item.code)) return false;
+        seen.add(item.code);
+        return true;
+    });
+};
+
 // Web templates
-const webTemplatesRaw = Object.entries(modulesWeb).map(([path, module]: [string, any]) => { return { ...module.default }; });
+const webTemplatesRaw = Object.values(modulesWeb).map((module: any) => ({ ...module.default }));
 
 // Color templates
-const colorTemplates = Object.entries(modulesCol).map(([path, module]: [string, any]) => { return { ...module.default }; });
+const colorTemplates = Object.values(modulesCol).map((module: any) => ({ ...module.default }));
 
 // Component temmplates
-const compTemplates = Object.entries(modulesCom).map(([path, module]: [string, any]) => { return { ...module.default }; });
+const compTemplates = Object.values(modulesCom).map((module: any) => ({ ...module.default }));
 
 // First element blank in web
 const webTemplates = 
 [
     blank,
-    ...webTemplatesRaw.filter(t => t.code !== "blank") 
+    ...uniqueByCode(webTemplatesRaw).filter(t => t.code !== "blank") 
 ];
 
 // First element blank in color

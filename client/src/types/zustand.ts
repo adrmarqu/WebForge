@@ -11,9 +11,9 @@ interface UnitValue
 
 export interface ConfigState
 {
-    max_width: UnitValue;
-    padding: UnitValue;
-    bg: string;
+    max_width: UnitValue | null;
+    padding: UnitValue | null;
+    bg: string | null;
 };
 
 interface ConfigActions
@@ -148,6 +148,9 @@ interface TagActions
 /* Global */
 export interface WebState
 {
+    active: boolean;
+    path: string;
+    template: string | null;
     config: ConfigState;
     colors: ColorState[];
     texts: TextState[];
@@ -157,7 +160,6 @@ export interface WebState
     layouts: LayoutState[];
     pages: PageState[];
     tags: TagState[];
-    template: string | null;
 };
 
 interface WebActions
@@ -171,7 +173,10 @@ interface WebActions
     layoutActions: LayoutActions;
     pagesActions: PageActions;
     tagsActions: TagActions;
-    loadTemplate: (template: WebState) => void;
+    loadTemplate: (template: Partial<WebState>) => void;
+    isActive: () => boolean;
+    getPath: () => string;
+    setPath: (path: string) => void; 
 };
 
 export interface WebStore extends WebState, WebActions {};

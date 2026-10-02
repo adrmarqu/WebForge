@@ -14,7 +14,7 @@ export type Template =
     code: string;
     type: TemplateType;
     image: string;
-    data: WebState;
+    data: Partial<WebState>;
 };
 
 export type TemplateType = 

@@ -12,12 +12,16 @@ import type {
     TagState
 } from '../types/zustand';
 
-const initialState: WebState = {
+const initialState: WebState =
+{
     template: null,
-    config: {
-        max_width: { value: 100, type: '%' },
-        padding: { value: 0, type: 'none' },
-        bg: '#ffffff'
+    active: false,
+    path: "",
+    config: 
+    {
+        max_width: null,
+        padding: null,
+        bg: null
     },
     colors: [],
     texts: [],
@@ -26,17 +30,19 @@ const initialState: WebState = {
     ts: [],
     layouts: [],
     pages: [],
-    tags: [],
+    tags: []
 };
 
-const config = (set: any) => ({
+const config = (set: any) => (
+{
     set: (data: ConfigState) => set({ config: data }),
     update: (data: Partial<ConfigState>) => set((state: WebState) => ({
         config: { ...state.config, ...data }
     }))
 });
 
-const colors = (set: any) => ({
+const colors = (set: any) => (
+{
     add: (data: ColorState) => set((state: WebState) => ({
         colors: [...state.colors, data]
     })),
@@ -48,7 +54,8 @@ const colors = (set: any) => ({
     }))
 });
 
-const texts = (set: any) => ({
+const texts = (set: any) => (
+{
     add: (data: TextState) => set((state: WebState) => ({
         texts: [...state.texts, data]
     })),
@@ -60,7 +67,8 @@ const texts = (set: any) => ({
     }))
 });
 
-const assets = (set: any) => ({
+const assets = (set: any) => (
+{
     add: (data: AssetState) => set((state: WebState) => ({
         assets: [...state.assets, data]
     })),
@@ -72,7 +80,8 @@ const assets = (set: any) => ({
     }))
 });
 
-const fileActions = (set: any, key: 'css' | 'ts') => ({
+const fileActions = (set: any, key: 'css' | 'ts') => (
+{
     add: (name: string, content: string) => set((state: WebState) => {
         const newId = state[key].length > 0 ? Math.max(...state[key].map(f => f.id)) + 1 : 1;
         const newFile: FileState = { id: newId, name, content };
@@ -86,7 +95,8 @@ const fileActions = (set: any, key: 'css' | 'ts') => ({
     }))
 });
 
-const layouts = (set: any) => ({
+const layouts = (set: any) => (
+{
     add: (data: LayoutState) => set((state: WebState) => ({
         layouts: [...state.layouts, data]
     })),
@@ -98,7 +108,8 @@ const layouts = (set: any) => ({
     }))
 });
 
-const pages = (set: any) => ({
+const pages = (set: any) => (
+{
     add: (data: PageState) => set((state: WebState) => ({
         pages: [...state.pages, data]
     })),
@@ -110,7 +121,8 @@ const pages = (set: any) => ({
     }))
 });
 
-const tags = (set: any) => ({
+const tags = (set: any) => (
+{
     add: (data: TagState) => set((state: WebState) => ({
         tags: [...state.tags, data]
     })),
@@ -122,23 +134,36 @@ const tags = (set: any) => ({
     }))
 });
 
-const webLoader = (set: any) => ({
-    loadTemplate: (templateData: WebState) => set(templateData)
+const tpl = (set: any, get: any) => (
+{
+    load: (templateData: Partial<WebState>) => set({ ...templateData, active: true }),
+    isActive: () => get().active,
+    getPath: () => get().path,
+    setPath: (newPath: string) => set({ path: newPath })
 });
 
-export const useStore = create<WebStore>((set) => ({
-    // Init store
-    ...initialState,
+export const useStore = create<WebStore>((set, get) => 
+{
+    const tplFunction = tpl(set, get);
 
-    // Functions
-    loadTemplate: webLoader(set).loadTemplate,
-    configActions: config(set),
-    colorsActions: colors(set),
-    textsActions: texts(set),
-    assetsActions: assets(set),
-    cssActions: fileActions(set, 'css'),
-    tsActions: fileActions(set, 'ts'),
-    layoutActions: layouts(set),
-    pagesActions: pages(set),
-    tagsActions: tags(set),
-}));
+    return {
+        // Init store
+        ...initialState,
+
+        // Functions
+        loadTemplate: tplFunction.load,
+        isActive: tplFunction.isActive,
+        getPath: tplFunction.getPath,
+        setPath: tplFunction.setPath,
+
+        configActions: config(set),
+        colorsActions: colors(set),
+        textsActions: texts(set),
+        assetsActions: assets(set),
+        cssActions: fileActions(set, 'css'),
+        tsActions: fileActions(set, 'ts'),
+        layoutActions: layouts(set),
+        pagesActions: pages(set),
+        tagsActions: tags(set)
+    }
+});

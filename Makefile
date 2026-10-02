@@ -1,43 +1,40 @@
 all: install up
 
-# Instala las dependencias tanto del servidor como del cliente
+# Instala las dependencias del cliente
 install:
-	@echo "==> Instalando dependencias del servidor..."
-	cd server && npm install
 	@echo "==> Instalando dependencias del cliente..."
 	cd client && npm install
-	@echo "✨ ¡Todas las dependencias instaladas con éxito! ✨"
+	@echo "✨ ¡Dependencias instaladas con éxito! ✨"
 
-# Arranca el sistema en segundo plano (UP)
+# Arranca el cliente en desarrollo
 up:
-	@echo "🧹 Limpiando puertos 3000 y 5173 si estaban ocupados..."
-	@npx kill-port 3000 5173 2>/dev/null || true
-	@echo "🚀 Encendiendo servidor y cliente..."
-	@cd server && npm run dev > ../server.log 2>&1 & echo $$! > ../server.pid
+	@echo "🧹 Limpiando el puerto 5173 si estaba ocupado..."
+	@npx kill-port 5173 2>/dev/null || true
+	@echo "🚀 Encendiendo el cliente de React..."
 	@cd client && npm run dev > ../client.log 2>&1 & echo $$! > ../client.pid
-	@echo "✅ ¡Sistema encendido! (Logs en server.log y client.log)"
+	@echo "✅ ¡Sistema encendido! (Logs en client.log)"
 
-# Apaga el sistema limpiamente (DOWN)
+# Apaga el cliente limpiamente
 down:
-	@echo "🛑 Apagando servidor y cliente..."
-	@if [ -f server.pid ]; then kill $$(cat server.pid) 2>/dev/null || true; rm server.pid; fi
+	@echo "🛑 Apagando el cliente..."
 	@if [ -f client.pid ]; then kill $$(cat client.pid) 2>/dev/null || true; rm client.pid; fi
 	@rm -f *.log
 	@echo "💤 Sistema apagado."
 
-# Comprueba si están corriendo
+# Comprueba si está corriendo
 status:
-	@if [ -f server.pid ] || [ -f client.pid ]; then \
-		echo "🟢 El sistema está ENCENDIDO."; \
+	@if [ -f client.pid ]; then \
+		echo "🟢 El cliente está ENCENDIDO."; \
 	else \
-		echo "🔴 El sistema está APAGADO."; \
+		echo "🔴 El cliente está APAGADO."; \
 	fi
 
 # Limpia los node_modules para empezar de cero
 clean: down
-	rm -rf server/node_modules client/node_modules
+	rm -rf client/node_modules
 	@echo "🧹 Módulos eliminados."
 
+# Abre la app en el navegador automáticamente
 open: 
 	@open -a "Google Chrome" http://localhost:5173
 

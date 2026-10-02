@@ -1,0 +1,28 @@
+*, *::before, *::after
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+ul, ol { list-style: none; }
+input, button, textarea, select { font: inherit; }
+
+img, picture, video, canvas, svg 
+{
+    display: block;
+    max-width: 100%;
+}
+
+a
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+body
+{
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}

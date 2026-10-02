@@ -29,6 +29,9 @@ export const useTranslation = () =>
             else
                 return code;
         }
+        if (current && typeof current === 'object' && 'default' in current)
+            return current.default;
+
         return typeof current === 'string' ? current : code;
     };
 
