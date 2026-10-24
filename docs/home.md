@@ -1,7 +1,10 @@
 # Home
+
+GET /
+GET /home
+
 ## Contenido
 
-- Boton login
 - Card
     - Titulo card
     - Boton continuar proyecto
@@ -12,7 +15,6 @@
 
 ## Actions
 
-- Boton login -> /login
 - Boton continuar -> /lastSite
 - Boton nuevo -> dialog -> /dashboard
 - Boton cargar -> /dashboard
