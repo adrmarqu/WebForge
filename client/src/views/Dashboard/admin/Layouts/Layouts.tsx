@@ -1,4 +1,4 @@
-const LayView = () =>
+const AdminLayoutsView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const LayView = () =>
     );
 };
 
-export default LayView;
+export default AdminLayoutsView;

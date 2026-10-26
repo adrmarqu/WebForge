@@ -1,4 +1,4 @@
-const IcoView = () =>
+const AdminIconsView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const IcoView = () =>
     );
 };
 
-export default IcoView;
+export default AdminIconsView;

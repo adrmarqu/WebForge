@@ -1,4 +1,4 @@
-const ForView = () =>
+const AdminFormsView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const ForView = () =>
     );
 };
 
-export default ForView;
+export default AdminFormsView;

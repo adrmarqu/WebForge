@@ -1,4 +1,4 @@
-const Preview = () =>
+const PreviewView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const Preview = () =>
     );
 };
 
-export default Preview;
+export default PreviewView;

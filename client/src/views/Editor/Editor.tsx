@@ -1,4 +1,4 @@
-const Editor = () =>
+const EditorView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const Editor = () =>
     );
 };
 
-export default Editor;
+export default EditorView;

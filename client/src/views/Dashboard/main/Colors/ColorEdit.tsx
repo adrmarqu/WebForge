@@ -1,4 +1,4 @@
-const ColorEdit = () =>
+const ColorEditView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const ColorEdit = () =>
     );
 };
 
-export default ColorEdit;
+export default ColorEditView;

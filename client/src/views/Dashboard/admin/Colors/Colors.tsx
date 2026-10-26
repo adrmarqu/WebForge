@@ -1,4 +1,4 @@
-const ColView = () =>
+const AdminColorsView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const ColView = () =>
     );
 };
 
-export default ColView;
+export default AdminColorsView;

@@ -1,4 +1,4 @@
-const ComView = () =>
+const AdminComponentsView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const ComView = () =>
     );
 };
 
-export default ComView;
+export default AdminComponentsView;

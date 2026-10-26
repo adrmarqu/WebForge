@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface NavigationState
 {
@@ -8,13 +9,12 @@ interface NavigationState
     export: () => { lastValidRoute: string }
 };
 
-export const useNavigationStore = create<NavigationState>((set, get) =>
-({
-    lastValidRoute: '/dashboard',
-    setLastValidRoute: (route: string) => set({ lastValidRoute: route }),
-
-    export: () =>
+export const useNavigationStore = create<NavigationState>()(
+    persist((set, get) => (
     {
-        return { lastValidRoute: get().lastValidRoute }
-    }
-}));
+        lastValidRoute: '/dashboard/welcome',
+        setLastValidRoute: (route) => set({ lastValidRoute: route }),
+        export: () => ({ lastValidRoute: get().lastValidRoute }),
+    }),
+    { name: 'webforge-navigation' }
+));

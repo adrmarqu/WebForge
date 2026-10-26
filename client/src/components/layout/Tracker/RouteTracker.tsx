@@ -11,13 +11,12 @@ const RouteTracker = (): React.ReactNode =>
     {
         const currentPath = location.pathname;
 
-        const isInvalidRoute =
-            currentPath === '/error/404' ||
-            currentPath === '/admin/login' ||
-            currentPath === '/' ||
-            currentPath === '/home';
+        const isValidRoute = 
+            currentPath.startsWith('/dashboard') || 
+            currentPath.startsWith('/editor');
 
-        if (!isInvalidRoute) setLastValidRoute(currentPath);
+        if (isValidRoute && currentPath !== '/dashboard') 
+            setLastValidRoute(currentPath);
 
     }, [location, setLastValidRoute]);
 

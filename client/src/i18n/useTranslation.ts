@@ -20,17 +20,17 @@ export const useTranslation = () =>
     const t = (code: string): string =>
     {
         const keys = code.split('.');
-        let current: any = translations[lang];
+        let current: unknown = translations[lang];
 
         for (const key of keys)
         {
             if (current && typeof current === 'object' && key in current)
-                current = current[key];
+                current = (current as Record<string, unknown>)[key];
             else
                 return code;
         }
         if (current && typeof current === 'object' && 'default' in current)
-            return current.default;
+            return (current as Record<string, unknown>).default as string;
 
         return typeof current === 'string' ? current : code;
     };

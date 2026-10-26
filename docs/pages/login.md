@@ -1,7 +1,7 @@
 # Login
 
-GET /login
-POST /login
+GET /admin/login
+POST /admin/login
 
 ## Contenido
 

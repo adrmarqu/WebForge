@@ -1,14 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import AppLayout from "./components/layout/AppLayout/AppLayout";
 
-// Headers
-
-import Header from "./components/layout/headers/Base/Header";
-import HeaderDash from "./components/layout/headers/Dashboard/Header";
-import HeaderEditor from "./components/layout/headers/Editor/Header";
-
-const headerHome = <Header />
-const headerDownload = <Header redir="/dashboard/welocome" />
+// Layouts
+import RootLayout from "./components/layout/layouts/RootLayout/RootLayout";
+import PublicLayout from "./components/layout/layouts/PublicLayout/PublicLayout";
+import DashboardLayout from "./components/layout/layouts/DashboardLayout/DashboardLayout";
+import EditorLayout from "./components/layout/layouts/EditorLayout/EditorLayout";
 
 // Views
 
@@ -16,9 +12,6 @@ const headerDownload = <Header redir="/dashboard/welocome" />
 import HomeView from "./views/Home/Home";
 import LoginView from "./views/Auth/Login";
 import DownloadView from "./views/Download/Download";
-
-/* Dashboard Nav */
-import DashboardNav from "./views/Dashboard/DashboardNav";
 
 /* Dashboard Home */
 import WelcomeView from "./views/Dashboard/home/Welcome/Welcome";
@@ -28,168 +21,164 @@ import UpdatesView from "./views/Dashboard/home/Updates/Updates";
 /* Dashboard Config */
 import WebsiteView from "./views/Dashboard/config/Website/Website";
 import ConfigView from "./views/Dashboard/config/Config/Config";
-import LanguagesView from "./views/Dashboard/config/Langs/Languages";
+import LanguagesView from "./views/Dashboard/config/Languages/Languages";
 
 /* Dashboard Color & Typography */
 import ColorsView from "./views/Dashboard/main/Colors/Colors";
-import ColorEdit from "./views/Dashboard/main/Colors/ColorEdit";
-import TyposView from "./views/Dashboard/main/Typo/Typos";
+import ColorEditView from "./views/Dashboard/main/Colors/ColorEdit";
+import TypographyView from "./views/Dashboard/main/Typography/Typography";
 
 /* Dashboard Main */
 import PagesView from "./views/Dashboard/main/Pages/Pages";
 import LayoutsView from "./views/Dashboard/main/Layouts/Layouts";
-import ComponentsView from "./views/Dashboard/main/Components/Componets";
+import ComponentsView from "./views/Dashboard/main/Components/Components";
 import FormsView from "./views/Dashboard/main/Forms/Forms";
 
 /* Dashboard Media */
-import MediaView from "./views/Dashboard/media/Images/Images";
-import MediaUploadView from "./views/Dashboard/media/Images/Upload";
+import MediaView from "./views/Dashboard/media/Media/Media";
+import MediaUploadView from "./views/Dashboard/media/Media/Upload";
 import IconsView from "./views/Dashboard/media/Icons/Icons";
 import IconUploadView from "./views/Dashboard/media/Icons/Upload";
 
 /* Dashboard Admin */
-import TplView from "./views/Dashboard/admin/Templates/Templates";
-import ColView from "./views/Dashboard/admin/Colors/Colors";
-import ComView from "./views/Dashboard/admin/Components/Components";
-import ForView from "./views/Dashboard/admin/Forms/Forms";
-import LayView from "./views/Dashboard/admin/Layouts/Layouts";
-import MedView from "./views/Dashboard/admin/Media/Images";
-import IcoView from "./views/Dashboard/admin/Icons/Icons";
+import AdminTemplatesView from "./views/Dashboard/admin/Templates/Templates";
+import AdminColorsView from "./views/Dashboard/admin/Colors/Colors";
+import AdminComponentsView from "./views/Dashboard/admin/Components/Components";
+import AdminFormsView from "./views/Dashboard/admin/Forms/Forms";
+import AdminLayoutsView from "./views/Dashboard/admin/Layouts/Layouts";
+import AdminMediaView from "./views/Dashboard/admin/Media/Media";
+import AdminIconsView from "./views/Dashboard/admin/Icons/Icons";
 
 /* Dashboard Project */
 import SaveView from "./views/Dashboard/project/Save/Save";
 import ExportView from "./views/Dashboard/project/Export/Export";
 import ImportView from "./views/Dashboard/project/Import/Import";
 import DeleteView from "./views/Dashboard/project/Delete/Delete";
-import ProjectView from "./views/Dashboard/project/Download/Download";
+import ProjectView from "./views/Dashboard/project/Project/Project";
 
 /* Main */
-import Editor from "./views/Editor/Editor";
-import Preview from "./views/Preview/Preview";
+import EditorView from "./views/Editor/Editor";
+import PreviewView from "./views/Preview/Preview";
 
 /* Error */
 import ErrorView from "./views/Error/Error";
 
 export const router = createBrowserRouter(
 [
-    /* Home, login */
     {
-        element: <AppLayout header={headerHome} showFooter={true} />,
+        element: <RootLayout />,
         children:
         [
-            /* Home */
-            { path: '/', element: <HomeView /> },
-            { path: '/home', element: <Navigate to="/" replace/> },
-            /* Login */
-            { path: '/admin/login', element: <LoginView /> },
-        ]
-    },
-    /* Download */
-    {
-        element: <AppLayout header={headerDownload} showFooter={true} />,
-        children:
-        [
+            /* Public routes (Home, Login) */
+            {
+                element: <PublicLayout />,
+                children:
+                [
+                    { path: '/', element: <HomeView /> },
+                    { path: '/home', element: <Navigate to="/" replace /> },
+                    { path: '/admin/login', element: <LoginView /> },
+                ]
+            },
+
             /* Download */
-            { path: '/download', element: <DownloadView /> },
-            { path: '/download/*', element: <Navigate to="/download" replace/> }
-        ]
-    },
-    /* Dashboard */
-    {
-        element: <AppLayout header={<HeaderDash />}/>,
-        children:
-        [{
-            path: '/dashboard',
-            element: <DashboardNav />,
-            children:
-            [
-                /* Redirection */
-                { index: true, element: <Navigate to="/dashboard/welcome" replace /> },
+            {
+                element: <PublicLayout redir="/dashboard/welcome" />,
+                children:
+                [
+                    { path: '/download', element: <DownloadView /> }
+                ]
+            },
 
-                /* Home */
-                { path: 'welcome', element: <WelcomeView /> },
-                { path: 'stats', element: <StatsView /> },
-                { path: 'updates', element: <UpdatesView /> },
+            /* Dashboard */
+            {
+                path: '/dashboard',
+                element: <DashboardLayout />,
+                children:
+                [
+                    /* Redirection */
+                    { index: true, element: <Navigate to="/dashboard/welcome" replace /> },
 
-                /* General */
-                { path: 'website', element: <WebsiteView /> },
-                { path: 'config', element: <ConfigView /> },
-                { path: 'languages', element: <LanguagesView /> },
+                    /* Home */
+                    { path: 'welcome', element: <WelcomeView /> },
+                    { path: 'stats', element: <StatsView /> },
+                    { path: 'updates', element: <UpdatesView /> },
 
-                /* Colors and typos */
-                { path: 'colors', element: <ColorsView /> },
-                { path: 'colors/edit', element: <ColorEdit /> },
-                { path: 'colors/new', element: <ColorEdit /> },
-                { path: 'typography', element: <TyposView /> },
+                    /* General */
+                    { path: 'website', element: <WebsiteView /> },
+                    { path: 'config', element: <ConfigView /> },
+                    { path: 'languages', element: <LanguagesView /> },
 
-                /* Main */
-                { path: 'pages', element: <PagesView /> },
-                { path: 'layouts', element: <LayoutsView /> },
-                { path: 'components', element: <ComponentsView /> },
-                { path: 'forms', element: <FormsView/> },
+                    /* Colors and typos */
+                    { path: 'colors', element: <ColorsView /> },
+                    { path: 'colors/edit', element: <ColorEditView /> },
+                    { path: 'colors/new', element: <ColorEditView /> },
+                    { path: 'typography', element: <TypographyView /> },
 
-                /* Media */
-                { path: 'media', element: <MediaView /> },
-                { path: 'media/upload', element: <MediaUploadView /> },
-                { path: 'icons', element: <IconsView /> },
-                { path: 'icons/upload', element: <IconUploadView /> },
+                    /* Main */
+                    { path: 'pages', element: <PagesView /> },
+                    { path: 'layouts', element: <LayoutsView /> },
+                    { path: 'components', element: <ComponentsView /> },
+                    { path: 'forms', element: <FormsView /> },
 
-                /* Admin */
-                {
-                    path: 'admin',
-                    children:
-                    [
-                        /* Redirection */
-                        { index: true, element: <Navigate to="/dashboard/admin/templates" replace /> },
+                    /* Media */
+                    { path: 'media', element: <MediaView /> },
+                    { path: 'media/upload', element: <MediaUploadView /> },
+                    { path: 'icons', element: <IconsView /> },
+                    { path: 'icons/upload', element: <IconUploadView /> },
 
-                        { path: 'templates', element: <TplView /> },
-                        { path: 'layouts', element: <LayView /> },
-                        { path: 'colors', element: <ColView /> },
-                        { path: 'media', element: <MedView /> },
-                        { path: 'icons', element: <IcoView /> },
-                        { path: 'components', element: <ComView /> },
-                        { path: 'forms', element: <ForView /> },
-                        
-                        /* Redirection */
-                        { path: '*', element: <Navigate to="/dashboard/admin/templates" replace /> },
-                    ]
-                },
+                    /* Admin */
+                    {
+                        path: 'admin',
+                        children:
+                        [
+                            /* Redirection */
+                            { index: true, element: <Navigate to="/dashboard/admin/templates" replace /> },
 
-                /* Projects */
-                { path: 'save', element: <SaveView /> },
-                { path: 'export', element: <ExportView /> },
-                { path: 'import', element: <ImportView /> },
-                { path: 'project', element: <ProjectView /> },
-                { path: 'delete', element: <DeleteView/> },
+                            { path: 'templates', element: <AdminTemplatesView /> },
+                            { path: 'layouts', element: <AdminLayoutsView /> },
+                            { path: 'colors', element: <AdminColorsView /> },
+                            { path: 'media', element: <AdminMediaView /> },
+                            { path: 'icons', element: <AdminIconsView /> },
+                            { path: 'components', element: <AdminComponentsView /> },
+                            { path: 'forms', element: <AdminFormsView /> },
 
-                /* Redirection */
-                { path: '*', element: <Navigate to="/dashboard/welcome" replace /> },
-            ]
-        }]
-    },
-    /* Editor */
-    {
-        element: <AppLayout header={<HeaderEditor />} showFooter={true} />,
-        children:
-        [
+                            /* Redirection */
+                            { path: '*', element: <Navigate to="/dashboard/admin/templates" replace /> },
+                        ]
+                    },
+
+                    /* Projects */
+                    { path: 'save', element: <SaveView /> },
+                    { path: 'export', element: <ExportView /> },
+                    { path: 'import', element: <ImportView /> },
+                    { path: 'project', element: <ProjectView /> },
+                    { path: 'delete', element: <DeleteView /> },
+
+                    /* Redirection */
+                    { path: '*', element: <Navigate to="/dashboard/welcome" replace /> },
+                ]
+            },
+
             /* Editor */
-            { path: '/editor', element: <Editor /> },
-            { path: '/editor/*', element: <Navigate to="/editor" replace/> }
-        ],
-    },
-    /* Preview */
-    {
-        element: <AppLayout />,
-        children:
-        [
+            {
+                element: <EditorLayout />,
+                children:
+                [
+                    { path: '/editor', element: <EditorView /> }
+                ]
+            },
+
             /* Preview */
-            { path: 'preview', element: <Preview/> },
-            { path: 'preview/*', element: <Navigate to="/preview" replace/> },
-        ],
-    },
-    /* Error */
-    {
-        path: '*',
-        element: <ErrorView />
+            {
+                path: '/preview',
+                element: <PreviewView />
+            },
+
+            /* Error */
+            {
+                path: '*',
+                element: <ErrorView />
+            }
+        ]
     }
 ]);

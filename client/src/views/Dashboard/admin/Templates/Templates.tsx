@@ -1,4 +1,4 @@
-const TplView = () =>
+const AdminTemplatesView = () =>
 {
     return (
     <>
@@ -6,4 +6,4 @@ const TplView = () =>
     );
 };
 
-export default TplView;
+export default AdminTemplatesView;
