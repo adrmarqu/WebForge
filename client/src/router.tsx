@@ -7,7 +7,6 @@ import DashboardLayout from "./components/layout/layouts/DashboardLayout/Dashboa
 import EditorLayout from "./components/layout/layouts/EditorLayout/EditorLayout";
 
 // Views
-
 /* Home, Login, Download */
 import HomeView from "./views/Home/Home";
 import LoginView from "./views/Auth/Login";
