@@ -18,10 +18,15 @@ dev:
 clean:
 	rm -rf client/node_modules client/dist
 
-update:
+git:
 	git add .
 	git commit -m "Updating to new version"
 	git push
+
+update: git
 	pnpm -C client version patch
+
+tag:
+	git tag -d v1.0.1
 
 .PHONY: all install dev clean
