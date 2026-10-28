@@ -6,16 +6,19 @@ install:
 	cd client
 	pnpm install
 	pnpm approve-builds
-	pnpm add zustand react-router-dom i18next react-i18next lucide-react clsx sonner
+	pnpm add zustand react-router-dom i18next react-i18next lucide-react clsx sonner jszip
 	pnpm add -D sass
 
 pnpm:
-	cd client && pnpm install
+	pnpm -C client install
 
 dev:
-	cd client && pnpm run dev
+	pnpm -C client run dev
 
 clean:
 	rm -rf client/node_modules client/dist
+
+update:
+	pnpm -C client version patch
 
 .PHONY: all install dev clean

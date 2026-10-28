@@ -2,7 +2,7 @@ const Header = ({redir = "/"}: {redir?: string}) =>
 {
     return (
     <header>
-        {redir}
+        Este es el header en {redir}
     </header>
     );
 };

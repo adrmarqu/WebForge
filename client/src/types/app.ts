@@ -1,29 +1,36 @@
-export interface AppState
+import type { WebData, WebConfig } from "./config";
+import type { FormsList, ComponentsList, LayoutsList, PagesList } from "./web";
+
+export interface TyposList
 {
-    config: WebConfig;
-    colors: ColorPalette;
-    typography: Typos;
-    website: Website; // Aqui es la estructura de la web y sus referencias
+    id: string;
+    typo: string;
 }
 
-/* 
+interface ColorState
+{
+    id: string;
+    color: string;
+    hover: string;
+}
 
+export interface ColorPalette
+{
+    id: string;
+    color: ColorState;
+    dark_color: ColorState;
+}
 
-Pages
-    - Forms
-    - Components
-    - Layouts
-    - Elements
-
-Forms
-    - Elements
-
-Layouts
-    - Elements
-
-Components
-    - Elements
-
-
-
-*/
+export interface AppState
+{
+    website: WebData;
+    config: WebConfig;
+    colors: ColorPalette[];
+    typos: TyposList[];
+    pages: PagesList[];
+    layouts: LayoutsList[];
+    components: ComponentsList[];
+    forms: FormsList[];
+    images: string[];
+    icons: string[];
+}
