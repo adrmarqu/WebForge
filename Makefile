@@ -19,6 +19,9 @@ clean:
 	rm -rf client/node_modules client/dist
 
 update:
+	git add .
+	git commit -m "Updating to new version"
+	git push
 	pnpm -C client version patch
 
 .PHONY: all install dev clean
